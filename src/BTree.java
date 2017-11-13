@@ -10,17 +10,19 @@ public class BTree {
 		return null;
 	}
 
-	public void insert() {
+	public void insert(double key, String value) {
 		// TODO: insert(key, value)
 	}
 
-	public void search() {
+	public String[] search(double key) {
 		// TODO: search(key) returns all values associated with the key
+		return null;
 	}
 
-	public void searchInRange() {
-		// TODO: search(key1, key2) returns (all key value pairs) such that key1 <= key
+	public double[] searchInRange(double smallKey, double largeKey) {
+		// TODO: search(key1, key2) returns (all key-value pairs) such that key1 <= key
 		// <= key2
+		return null;
 	}
 
 }
