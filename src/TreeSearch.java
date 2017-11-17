@@ -5,7 +5,7 @@ public class TreeSearch {
 		FileReader reader = new FileReader(args[0]);
 
 		reader.readFile();
-		System.out.println("M : " + reader.getM());
+		System.out.println("M: " + reader.getM());
 	}
 
 }

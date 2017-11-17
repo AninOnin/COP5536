@@ -1,15 +1,18 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class FileReader {
 
 	String filename;
 
-	String fileContents[];
+	ArrayList<String> fileContents;
 
 	public FileReader(String filename) {
 		this.filename = filename;
+
+		fileContents = new ArrayList<String>();
 	}
 
 	/**
@@ -25,10 +28,10 @@ public class FileReader {
 
 		try {
 			reader = new Scanner(file);
-			int i = 0;
 
 			while (reader.hasNext()) {
-				fileContents[i++] = reader.nextLine();
+				fileContents.add(reader.nextLine());
+				// System.out.println("fileContents: " + fileContents.get(i++));
 			}
 
 			reader.close();
@@ -39,8 +42,8 @@ public class FileReader {
 	}
 
 	public int getM() {
-		if (fileContents.length != 0) {
-			return Integer.parseInt(fileContents[0]);
+		if (fileContents.size() != 0) {
+			return Integer.parseInt(fileContents.get(0));
 		} else {
 			return -1;
 		}
