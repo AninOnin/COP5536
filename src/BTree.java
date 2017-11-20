@@ -1,7 +1,17 @@
 public class BTree {
 
-	public BTree() {
+	/* Root node (cannot be empty) */
+	private Node root;
 
+	/* Order of the B+ Tree */
+	public int order;
+
+	/* Max number of keys a node can have (m-1) */
+	public int maxKeys;
+
+	public BTree(int order) {
+		this.order = order;
+		this.maxKeys = order - 1;
 	}
 
 	public BTree initialize(int m) {
@@ -11,18 +21,18 @@ public class BTree {
 	}
 
 	public void insert(double key, String value) {
-		System.out.println("Calling the insert() function.");
+		System.out.println("Insert " + key + " with " + value + ".");
 		// TODO: insert(key, value)
 	}
 
 	public String[] search(double key) {
-		System.out.println("Calling the search(1) function.");
+		System.out.println("Search for " + key + ".");
 		// TODO: search(key) returns all values associated with the key
 		return null;
 	}
 
 	public double[] search(double smallKey, double largeKey) {
-		System.out.println("Calling the search(2) function.");
+		System.out.println("Search for keys between " + smallKey + " and " + largeKey + ".");
 		// TODO: search(key1, key2) returns (all key-value pairs) such that key1 <= key
 		// <= key2
 		return null;

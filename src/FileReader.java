@@ -22,7 +22,7 @@ public class FileReader {
 	 * @param filename
 	 *            name of the file to be read
 	 */
-	public void readFile() {
+	public ArrayList<String> readFile() {
 		File file = new File(filename);
 		Scanner reader;
 
@@ -39,6 +39,8 @@ public class FileReader {
 			System.err.println("Error: File not found.");
 			System.exit(1);
 		}
+
+		return fileContents;
 	}
 
 	public int getM() {
