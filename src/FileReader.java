@@ -7,10 +7,13 @@ public class FileReader {
 
 	String filename;
 
+	int order;
+
 	ArrayList<String> fileContents;
 
 	public FileReader(String filename) {
 		this.filename = filename;
+		this.order = -1;
 
 		fileContents = new ArrayList<String>();
 	}
@@ -29,6 +32,9 @@ public class FileReader {
 		try {
 			reader = new Scanner(file);
 
+			order = reader.nextInt();
+			reader.nextLine();
+
 			while (reader.hasNext()) {
 				fileContents.add(reader.nextLine());
 				// System.out.println("fileContents: " + fileContents.get(i++));
@@ -43,12 +49,8 @@ public class FileReader {
 		return fileContents;
 	}
 
-	public int getM() {
-		if (fileContents.size() != 0) {
-			return Integer.parseInt(fileContents.get(0));
-		} else {
-			return -1;
-		}
+	public int getOrder() {
+		return order;
 	}
 
 }

@@ -12,8 +12,8 @@ public class TreeSearch {
 		FileReader reader = new FileReader(args[0]);
 		commands = reader.readFile();
 
-		tree = new BTree(reader.getM());
-		System.out.println("M: " + reader.getM());
+		tree = new BTree(reader.getOrder());
+		System.out.println("M: " + reader.getOrder());
 
 		callCommands();
 	}
