@@ -2,6 +2,7 @@ public class BTree {
 
 	/* Root node (cannot be empty) */
 	private Node root;
+	private Node current;
 
 	/* Order of the B+ Tree */
 	public int order;
@@ -14,6 +15,7 @@ public class BTree {
 		this.maxKeys = order - 1;
 
 		root = new Node(order);
+		current = root;
 	}
 
 	public BTree initialize(int m) {
@@ -30,10 +32,22 @@ public class BTree {
 		}
 	}
 
-	public String[] search(double key) {
+	public void search(double key) {
 		System.out.println("Search for " + key + ".");
-		// TODO: search(key) returns all values associated with the key
-		return null;
+		String[] values = root.getVal(key);
+
+		if (values == null) {
+			System.err.println("Null");
+		} else {
+			System.out.printf("Key " + key + " has value(s) ");
+
+			for (String s : values) {
+				if (s != null) {
+					System.out.printf("%s", s);
+				}
+			}
+			System.out.println();
+		}
 	}
 
 	public double[] search(double smallKey, double largeKey) {

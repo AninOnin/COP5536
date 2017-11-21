@@ -1,10 +1,14 @@
+import java.util.TreeMap;
+
 public class Node {
+
+	private int NUM_OF_DUPLICATES_ALLOWED = 5;
 
 	public int order;
 
 	public int numPairs;
-	public double[] keys;
-	public String[] values;
+
+	public TreeMap<Double, String[]> pairs;
 
 	public int numChildren;
 	public Node[] children;
@@ -14,36 +18,21 @@ public class Node {
 
 		// B+ Tree of order m can have m children, but only up to m-1 pairs
 		this.numPairs = 0;
-		this.keys = new double[order - 1];
-		this.values = new String[order - 1];
+		this.pairs = new TreeMap<Double, String[]>();
 
 		this.numChildren = 0;
 		this.children = new Node[order];
 	}
 
 	/**
-	 * Returns the key of the node.
-	 * 
-	 * @return key of the node
-	 */
-	public double[] getKeys() {
-		return keys;
-	}
-
-	/**
 	 * Returns the value of the node.
 	 * 
+	 * @param key
+	 *            the key whose value is being searched
 	 * @return value of the node, null if doesn't exist
 	 */
-	public String getVal(double key) {
-		for (int i = 0; i < keys.length; i++) {
-			if (keys[i] == key) {
-				// Returns corresponding value
-				return values[i];
-			}
-		}
-
-		return null;
+	public String[] getVal(double key) {
+		return pairs.get(key);
 	}
 
 	/**
@@ -51,14 +40,32 @@ public class Node {
 	 * the child is able to be added to the children array (not full), or calls
 	 * split if the array is full and needs to be split.
 	 * 
-	 * @param child
-	 * @return
+	 * @param key
+	 *            key of the pair to be added
+	 * @param value
+	 *            value of the pair to be added
+	 * @return true if the key/value pair was successfully added, false if it
+	 *         couldn't be added
 	 */
 	public boolean add(double key, String value) {
+		String[] values = new String[NUM_OF_DUPLICATES_ALLOWED];
+
 		if (numPairs < order - 1) {
 			// Node still has space for at least one more key/value pair
-			keys[numPairs] = key;
-			values[numPairs] = value;
+			if (!pairs.containsKey(key)) {
+				values[0] = value;
+				pairs.put(key, values);
+			} else {
+				// Duplicate value, add it to the value array
+				values = pairs.get(key);
+				for (int i = 0; i < values.length; i++) {
+					if (values[i] == null) {
+						values[i] = value;
+						break;
+					}
+				}
+			}
+
 			numPairs++;
 
 			return true;
