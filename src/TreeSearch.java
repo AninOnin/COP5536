@@ -1,16 +1,14 @@
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class TreeSearch {
 
 	public static BTree tree;
 
-	static ArrayList<String> commands;
+	static ArrayList<Command> commands;
 
 	public static void main(String[] args) {
 		FileReader reader = new FileReader(args[0]);
-		commands = reader.readFile();
+		commands = reader.getCommands();
 
 		tree = new BTree(reader.getOrder());
 		System.out.println("M: " + reader.getOrder());
@@ -19,30 +17,20 @@ public class TreeSearch {
 	}
 
 	public static void callCommands() {
-		for (String s : commands) {
+		for (Command c : commands) {
 
-			if (s.contains("Insert") || s.contains("insert")) {
-				tree.insert(parseDouble(s), "null");
-			} else if (s.contains("Search") || s.contains("search")) {
-				if (s.contains(",")) {
+			if (c.getCommand().equals("insert")) {
+				tree.insert(c.getD1(), c.getValue());
+			} else if (c.getCommand().equals("search")) {
+				if (c.rangeSearch()) {
 					// there are two doubles that you need to parse
+					tree.search(c.getD1(), c.getD2());
+				} else {
+					tree.search(c.getD1());
 				}
-				tree.search(parseDouble(s));
 			}
 
 		}
-	}
-
-	public static double parseDouble(String s) {
-		Pattern p = Pattern.compile("-?\\d+(\\.\\d+)?");
-		Matcher m;
-		m = p.matcher(s);
-		if (m.find()) {
-			
-			return Double.parseDouble(s.substring(m.start(), m.end()));
-		}
-
-		return 0.0;
 	}
 
 }

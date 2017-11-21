@@ -6,16 +6,18 @@ import java.util.Scanner;
 public class FileReader {
 
 	String filename;
+	Command cmd;
+	ArrayList<Command> commands;
 
 	int order;
-
-	ArrayList<String> fileContents;
 
 	public FileReader(String filename) {
 		this.filename = filename;
 		this.order = -1;
 
-		fileContents = new ArrayList<String>();
+		cmd = null;
+
+		commands = new ArrayList<Command>();
 	}
 
 	/**
@@ -25,7 +27,7 @@ public class FileReader {
 	 * @param filename
 	 *            name of the file to be read
 	 */
-	public ArrayList<String> readFile() {
+	public ArrayList<Command> getCommands() {
 		File file = new File(filename);
 		Scanner reader;
 
@@ -36,8 +38,8 @@ public class FileReader {
 			reader.nextLine();
 
 			while (reader.hasNext()) {
-				fileContents.add(reader.nextLine());
-				// System.out.println("fileContents: " + fileContents.get(i++));
+				String s = reader.nextLine();
+				s.split("\\(");
 			}
 
 			reader.close();
@@ -46,7 +48,7 @@ public class FileReader {
 			System.exit(1);
 		}
 
-		return fileContents;
+		return commands;
 	}
 
 	public int getOrder() {

@@ -8,7 +8,7 @@ public class Command {
 	double d2;
 
 	public Command(String command) {
-		this.command = command;
+		this.command = command.toLowerCase();
 	}
 
 	public String getCommand() {
@@ -55,6 +55,14 @@ public class Command {
 			return d2;
 		}
 		return Double.MIN_VALUE;
+	}
+
+	public boolean rangeSearch() {
+		if (d2 != Double.MIN_VALUE) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 }
