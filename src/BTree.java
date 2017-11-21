@@ -1,4 +1,3 @@
-import java.io.File;
 import java.io.PrintWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -32,7 +31,7 @@ public class BTree {
 
 		try {
 			fileWriter = new FileWriter(fileName);
-			printWriter = new PrintWriter(fileWriter);
+			printWriter = new PrintWriter(fileWriter, true);
 		} catch (IOException e) {
 			System.err.println("Error: Could not write to output file.");
 			e.printStackTrace();
@@ -60,7 +59,7 @@ public class BTree {
 			printWriter = new PrintWriter(fileWriter);
 		} catch (IOException e) {
 			System.err.println("Error: Could not write to output file.");
-			e.printStackTrace();
+			System.exit(1);
 		}
 		root = new Node(order);
 		return this;
@@ -69,8 +68,6 @@ public class BTree {
 	public void insert(double key, String value) {
 		if (!root.add(key, value)) {
 			System.err.println("Insert failed.");
-		} else {
-			System.out.printf("%.2f:\t\t%s inserted\n", key, value);
 		}
 	}
 
@@ -87,7 +84,7 @@ public class BTree {
 		int numCommas = -1;
 
 		if (values == null) {
-			System.out.println("Null");
+			printWriter.println("Null");
 		} else {
 
 			for (int i = 0; i < values.length; i++) {
@@ -96,29 +93,27 @@ public class BTree {
 				}
 			}
 
-			System.out.printf("%.2f:\t\t", key);
-
 			for (String s : values) {
 				if (s != null) {
-					System.out.printf("%s", s);
+					printWriter.printf("%s", s);
 				}
 				if (numCommas > 0) {
-					System.out.printf(", ");
+					printWriter.printf(", ");
 					numCommas--;
 				}
 			}
 
-			System.out.println();
+			printWriter.println();
 		}
 	}
 
 	public double[] search(double smallKey, double largeKey) {
 		for (double d : root.getKeys()) {
 			if (d >= smallKey && d <= largeKey) {
-				System.out.printf("(%.2f, %s), ", d, root.getVal(d)[0]);
+				printWriter.printf("(%.2f, %s), ", d, root.getVal(d)[0]);
 			}
 		}
-		System.out.println();
+		printWriter.println();
 
 		return null;
 	}
