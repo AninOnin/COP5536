@@ -11,6 +11,12 @@ public class FileReader {
 
 	int order;
 
+	/**
+	 * Creates a new FileReader object given the name of the file as a String.
+	 * 
+	 * @param filename
+	 *            name of the file to be read
+	 */
 	public FileReader(String filename) {
 		this.filename = filename;
 		this.order = -1;
@@ -68,6 +74,7 @@ public class FileReader {
 
 			reader.close();
 		} catch (FileNotFoundException e) {
+			// If the file isn't found, it prints and error message and exits the program.
 			System.err.println("Error: File not found.");
 			System.exit(1);
 		}
@@ -75,6 +82,12 @@ public class FileReader {
 		return commands;
 	}
 
+	/**
+	 * Returns the order of the B+ Tree so the program can create an empty B+ Tree
+	 * with appropriate order m.
+	 * 
+	 * @return order of the B+ Tree
+	 */
 	public int getOrder() {
 		return order;
 	}

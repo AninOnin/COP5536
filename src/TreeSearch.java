@@ -11,7 +11,6 @@ public class TreeSearch {
 		commands = reader.getCommands();
 
 		tree = new BTree(reader.getOrder());
-		System.out.println("M: " + reader.getOrder());
 
 		callCommands();
 	}
