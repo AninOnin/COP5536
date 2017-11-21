@@ -1,12 +1,22 @@
+import java.io.File;
+import java.io.PrintWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class BTree {
 
 	/* Root node (cannot be empty) */
 	private Node root;
 	/* Order of the B+ Tree */
 	public int order;
-
 	/* Max number of keys a node can have (m-1) */
 	public int maxKeys;
+	/* File that will hold the contents of our output. */
+	public String fileName;
+	/* Specifies the file that we will write to. */
+	public FileWriter fileWriter;
+	/* Writer that will allow us to write contents to output file. */
+	public PrintWriter printWriter;
 
 	/**
 	 * Creates and returns an empty BTree.
@@ -17,6 +27,16 @@ public class BTree {
 	public BTree(int order) {
 		this.order = order;
 		this.maxKeys = order - 1;
+
+		this.fileName = "output_file.txt";
+
+		try {
+			fileWriter = new FileWriter(fileName);
+			printWriter = new PrintWriter(fileWriter);
+		} catch (IOException e) {
+			System.err.println("Error: Could not write to output file.");
+			e.printStackTrace();
+		}
 
 		root = new Node(order);
 	}
@@ -33,6 +53,15 @@ public class BTree {
 		this.order = order;
 		this.maxKeys = order - 1;
 
+		this.fileName = "output_file.txt";
+
+		try {
+			fileWriter = new FileWriter(fileName);
+			printWriter = new PrintWriter(fileWriter);
+		} catch (IOException e) {
+			System.err.println("Error: Could not write to output file.");
+			e.printStackTrace();
+		}
 		root = new Node(order);
 		return this;
 	}
@@ -40,6 +69,8 @@ public class BTree {
 	public void insert(double key, String value) {
 		if (!root.add(key, value)) {
 			System.err.println("Insert failed.");
+		} else {
+			System.out.printf("%.2f:\t\t%s inserted\n", key, value);
 		}
 	}
 
@@ -56,7 +87,7 @@ public class BTree {
 		int numCommas = -1;
 
 		if (values == null) {
-			System.err.println("Null");
+			System.out.println("Null");
 		} else {
 
 			for (int i = 0; i < values.length; i++) {
@@ -65,7 +96,7 @@ public class BTree {
 				}
 			}
 
-			System.out.printf("Key " + key + " has value(s) ");
+			System.out.printf("%.2f:\t\t", key);
 
 			for (String s : values) {
 				if (s != null) {
@@ -82,10 +113,13 @@ public class BTree {
 	}
 
 	public double[] search(double smallKey, double largeKey) {
+		for (double d : root.getKeys()) {
+			if (d >= smallKey && d <= largeKey) {
+				System.out.printf("(%.2f, %s), ", d, root.getVal(d)[0]);
+			}
+		}
+		System.out.println();
 
-		System.out.println("Search for keys between " + smallKey + " and " + largeKey + ".");
-		// TODO: search(key1, key2) returns (all key-value pairs) such that key1 <= key
-		// <= key2
 		return null;
 	}
 

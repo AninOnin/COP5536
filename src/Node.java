@@ -1,4 +1,5 @@
 import java.util.TreeMap;
+import java.util.Set;
 
 public class Node {
 
@@ -10,7 +11,6 @@ public class Node {
 
 	public TreeMap<Double, String[]> pairs;
 
-	public int numChildren;
 	public Node[] children;
 
 	public Node(int order) {
@@ -20,7 +20,6 @@ public class Node {
 		this.numPairs = 0;
 		this.pairs = new TreeMap<Double, String[]>();
 
-		this.numChildren = 0;
 		this.children = new Node[order];
 	}
 
@@ -33,6 +32,10 @@ public class Node {
 	 */
 	public String[] getVal(double key) {
 		return pairs.get(key);
+	}
+
+	public Set<Double> getKeys() {
+		return pairs.keySet();
 	}
 
 	/**
@@ -50,28 +53,23 @@ public class Node {
 	public boolean add(double key, String value) {
 		String[] values = new String[NUM_OF_DUPLICATES_ALLOWED];
 
-		if (numPairs < order - 1) {
-			// Node still has space for at least one more key/value pair
-			if (!pairs.containsKey(key)) {
-				values[0] = value;
-				pairs.put(key, values);
-			} else {
-				// Duplicate value, add it to the value array
-				values = pairs.get(key);
-				for (int i = 0; i < values.length; i++) {
-					if (values[i] == null) {
-						values[i] = value;
-						break;
-					}
+		// Node still has space for at least one more key/value pair
+		if (!pairs.containsKey(key)) {
+			values[0] = value;
+			pairs.put(key, values);
+		} else {
+			// Duplicate value, add it to the value array
+			values = pairs.get(key);
+			for (int i = 0; i < values.length; i++) {
+				if (values[i] == null) {
+					values[i] = value;
+					break;
 				}
 			}
-
-			numPairs++;
-
-			return true;
 		}
 
-		return false;
+		return true;
+
 	}
 
 }
