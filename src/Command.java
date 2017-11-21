@@ -7,8 +7,15 @@ public class Command {
 	double d1;
 	double d2;
 
+	boolean twoDoubles;
+
 	public Command(String command) {
 		this.command = command.toLowerCase();
+
+		this.value = null;
+
+		this.d1 = Double.MIN_VALUE;
+		this.d2 = Double.MIN_VALUE;
 	}
 
 	public String getCommand() {
@@ -54,15 +61,15 @@ public class Command {
 		} else {
 			return d2;
 		}
-		return Double.MIN_VALUE;
+		return d2;
 	}
 
-	public boolean rangeSearch() {
-		if (d2 != Double.MIN_VALUE) {
-			return true;
-		} else {
-			return false;
-		}
+	public void setRangeSearch(boolean twoDoubles) {
+		this.twoDoubles = twoDoubles;
+	}
+
+	public boolean isRangeSearch() {
+		return twoDoubles;
 	}
 
 }
