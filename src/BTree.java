@@ -108,10 +108,22 @@ public class BTree {
 	}
 
 	public double[] search(double smallKey, double largeKey) {
+		int numCommas = -1;
 		for (double d : root.getKeys()) {
 			if (d >= smallKey && d <= largeKey) {
-				printWriter.printf("(%.2f, %s), ", d, root.getVal(d)[0]);
+				numCommas++;
 			}
+		}
+
+		for (double d : root.getKeys()) {
+			if (d >= smallKey && d <= largeKey) {
+				printWriter.printf("(%.2f, %s)", d, root.getVal(d)[0]);
+				if (numCommas > 0) {
+					printWriter.printf(", ");
+					numCommas--;
+				}
+			}
+
 		}
 		printWriter.println();
 
