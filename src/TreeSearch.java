@@ -6,6 +6,12 @@ public class TreeSearch {
 
 	static ArrayList<Command> commands;
 
+	/**
+	 * Starts the program.
+	 * 
+	 * @param args
+	 *            command-line arguments
+	 */
 	public static void main(String[] args) {
 		FileReader reader = new FileReader(args[0]);
 		commands = reader.getCommands();
@@ -15,6 +21,9 @@ public class TreeSearch {
 		callCommands();
 	}
 
+	/**
+	 * Calls commands returned by the FileReader.
+	 */
 	public static void callCommands() {
 		for (Command c : commands) {
 

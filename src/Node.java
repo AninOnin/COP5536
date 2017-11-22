@@ -34,6 +34,11 @@ public class Node {
 		return pairs.get(key);
 	}
 
+	/**
+	 * Returns an ordered set of double keys.
+	 * 
+	 * @return set of double keys in ascending order
+	 */
 	public Set<Double> getKeys() {
 		return pairs.keySet();
 	}

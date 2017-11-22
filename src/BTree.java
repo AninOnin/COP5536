@@ -67,7 +67,7 @@ public class BTree {
 
 	public void insert(double key, String value) {
 		if (!root.add(key, value)) {
-			System.err.println("Insert failed.");
+			System.err.println("Error: Insert failed.");
 		}
 	}
 
@@ -107,7 +107,15 @@ public class BTree {
 		}
 	}
 
-	public double[] search(double smallKey, double largeKey) {
+	/**
+	 * Search for the (key,value) pairs in the given range of keys, inclusive
+	 * 
+	 * @param smallKey
+	 *            the small value of the range to be searched
+	 * @param largeKey
+	 *            the large value of the range to be searched
+	 */
+	public void search(double smallKey, double largeKey) {
 		int numCommas = -1;
 		for (double d : root.getKeys()) {
 			if (d >= smallKey && d <= largeKey) {
@@ -126,8 +134,6 @@ public class BTree {
 
 		}
 		printWriter.println();
-
-		return null;
 	}
 
 }
